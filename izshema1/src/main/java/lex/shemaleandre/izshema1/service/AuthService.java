@@ -8,7 +8,7 @@ import lex.shemaleandre.izshema1.entity.PasswordResetToken;
 import lex.shemaleandre.izshema1.entity.User;
 import lex.shemaleandre.izshema1.repository.PasswordResetTokenRepository;
 import lex.shemaleandre.izshema1.repository.UserRepository;
-import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,27 +22,30 @@ import java.util.Map;
 import java.util.UUID;
 
 @Service
-public class AuthService implements UserDetailsService {
+public class AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
-    private final AuthenticationManager authenticationManager;
+    private final AuthenticationProvider authenticationProvider;
     private final EmailService emailService;
     private final PasswordResetTokenRepository tokenRepository;
+    private final UserDetailsService userDetailsService;
 
     public AuthService(UserRepository userRepository,
                        PasswordEncoder passwordEncoder,
                        JwtService jwtService,
-                       AuthenticationManager authenticationManager,
+                       AuthenticationProvider authenticationProvider,
                        EmailService emailService,
-                       PasswordResetTokenRepository tokenRepository) {
+                       PasswordResetTokenRepository tokenRepository,
+                       UserDetailsService userDetailsService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
-        this.authenticationManager = authenticationManager;
+        this.authenticationProvider = authenticationProvider;
         this.emailService = emailService;
         this.tokenRepository = tokenRepository;
+        this.userDetailsService = userDetailsService;
     }
 
     public ApiResponse registerStudent(RegisterRequest request) throws MessagingException {
@@ -78,13 +81,13 @@ public class AuthService implements UserDetailsService {
     }
 
     public ApiResponse login(LoginRequest request) {
-        authenticationManager.authenticate(
+        authenticationProvider.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
         User user = userRepository.findByEmail(request.getEmail());
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
-        String jwt = jwtService.generateToken(this.loadUserByUsername(request.getEmail()));
+        String jwt = jwtService.generateToken(userDetailsService.loadUserByUsername(request.getEmail()));
         return new ApiResponse("Login successful", Map.of(
                 "jwt", jwt,
                 "userId", user.getId(),
@@ -121,18 +124,5 @@ public class AuthService implements UserDetailsService {
         userRepository.save(user);
         tokenRepository.delete(token);
         return new ApiResponse("Password reset successfully");
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email);
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found with email: " + email);
-        }
-        return org.springframework.security.core.userdetails.User
-                .withUsername(user.getEmail())
-                .password(user.getPassword())
-                .roles(user.getRole().name())
-                .build();
     }
 }

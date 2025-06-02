@@ -85,8 +85,10 @@ public class AuthService {
             throw new UsernameNotFoundException("User not found");
         }
         String jwt = jwtService.generateToken(userDetailsService.loadUserByUsername(request.getEmail()));
+        System.out.println("JWT: " + jwt);
         return new ApiResponse("Login successful", Map.of(
                 "jwt", jwt,
+
                 "userId", user.getId(),
                 "role", user.getRole().name()
         ));

@@ -11,3 +11,6 @@ public class Izshema1Application {
 		SpringApplication.run(Izshema1Application.class, args);
 	}
 }
+
+
+//implementing swagger

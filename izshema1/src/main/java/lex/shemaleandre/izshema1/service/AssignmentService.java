@@ -148,7 +148,7 @@ public class AssignmentService {
         dto.setId(submission.getId());
         dto.setAssignmentId(submission.getAssignment().getId());
         dto.setStudentId(submission.getStudent().getId());
-        dto.setStudentName(submission.getStudent().getFirstName() + " " + submission.getStudent().getLastName());
+        dto.setStudentName(submission.getStudent().getName() + " " + submission.getStudent().getName());
         dto.setSubmissionText(submission.getSubmissionText());
         dto.setFileUrl(submission.getFileUrl());
         dto.setStatus(submission.getStatus().name());

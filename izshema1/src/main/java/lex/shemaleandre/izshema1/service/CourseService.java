@@ -109,7 +109,7 @@ public class CourseService {
         dto.setPrice(course.getPrice());
         dto.setPrerequisites(course.getPrerequisites());
         dto.setInstructorId(course.getInstructor().getId());
-        dto.setInstructorName(course.getInstructor().getFirstName() + " " + course.getInstructor().getLastName());
+        dto.setInstructorName(course.getInstructor().getName() + " " + course.getInstructor().getName());
         dto.setEnrollmentCount(course.getEnrollmentCount());
         dto.setAverageRating(course.getAverageRating());
         return dto;

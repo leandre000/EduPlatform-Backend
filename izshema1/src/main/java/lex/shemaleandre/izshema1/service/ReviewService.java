@@ -131,7 +131,7 @@ public class ReviewService {
         dto.setId(review.getId());
         dto.setCourseId(review.getCourse().getId());
         dto.setStudentId(review.getStudent().getId());
-        dto.setStudentName(review.getStudent().getFirstName() + " " + review.getStudent().getLastName());
+        dto.setStudentName(review.getStudent().getName() + " " + review.getStudent().getName());
         dto.setRating(review.getRating());
         dto.setComment(review.getComment());
         return dto;

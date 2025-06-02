@@ -10,7 +10,6 @@ import lex.shemaleandre.izshema1.repository.PasswordResetTokenRepository;
 import lex.shemaleandre.izshema1.repository.UserRepository;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -50,8 +49,7 @@ public class AuthService {
 
     public ApiResponse registerStudent(RegisterRequest request) throws MessagingException {
         User user = new User();
-        user.setFirstName(request.getFirstName());
-        user.setLastName(request.getLastName());
+        user.setName(request.getName());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(User.Role.STUDENT);
@@ -66,8 +64,7 @@ public class AuthService {
 
     public ApiResponse registerInstructor(RegisterRequest request) throws MessagingException {
         User user = new User();
-        user.setFirstName(request.getFirstName());
-        user.setLastName(request.getLastName());
+        user.setName(request.getName());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(User.Role.INSTRUCTOR);

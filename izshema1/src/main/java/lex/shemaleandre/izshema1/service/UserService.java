@@ -43,8 +43,7 @@ public class UserService {
         if (user == null) {
             throw new ResourceNotFoundException("User not found");
         }
-        user.setFirstName(userDTO.getFirstName());
-        user.setLastName(userDTO.getLastName());
+        user.setName(userDTO.getName());
         user.setBio(userDTO.getBio());
         userRepository.save(user);
         return new ApiResponse("Profile updated successfully", mapToUserDTO(user));
@@ -104,8 +103,7 @@ public class UserService {
     private UserDTO mapToUserDTO(User user) {
         UserDTO dto = new UserDTO();
         dto.setId(user.getId());
-        dto.setFirstName(user.getFirstName());
-        dto.setLastName(user.getLastName());
+        dto.setName(user.getName());
         dto.setEmail(user.getEmail());
         dto.setRole(user.getRole().name());
         dto.setBio(user.getBio());

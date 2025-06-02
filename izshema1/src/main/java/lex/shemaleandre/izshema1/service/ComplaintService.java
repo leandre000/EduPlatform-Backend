@@ -106,7 +106,7 @@ public class ComplaintService {
         ComplaintDTO dto = new ComplaintDTO();
         dto.setId(complaint.getId());
         dto.setStudentId(complaint.getStudent().getId());
-        dto.setStudentName(complaint.getStudent().getFirstName() + " " + complaint.getStudent().getLastName());
+        dto.setStudentName(complaint.getStudent().getName() + " " + complaint.getStudent().getName());
         dto.setCourseId(complaint.getCourse() != null ? complaint.getCourse().getId() : null);
         dto.setCourseTitle(complaint.getCourse() != null ? complaint.getCourse().getTitle() : null);
         dto.setSubject(complaint.getSubject());

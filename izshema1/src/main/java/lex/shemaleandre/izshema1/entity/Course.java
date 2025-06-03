@@ -5,6 +5,8 @@ import lombok.Data;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+
+//implementing my course entity
 // Course entity representing an online course
 @Data
 @Entity

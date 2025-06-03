@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 // Enrollment entity representing a student's enrollment in a course
+//designing enrollment entity
 @Data
 @Entity
 @Table(name = "enrollments")

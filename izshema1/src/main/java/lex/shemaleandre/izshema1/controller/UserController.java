@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 
-// Controller for user profile management
+// Controller for user profile management to perform certain operations
 @RestController
 @RequestMapping("/api/users")
 public class UserController {

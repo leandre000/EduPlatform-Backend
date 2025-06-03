@@ -25,6 +25,9 @@ public class MarkingGuideController {
     private MarkingGuideService markingGuideService;
 
     // Upload a marking guide (Instructor only)
+
+    //To be reviewed
+
     @PostMapping("/courses/{courseId}/marking-guides")
     @PreAuthorize("hasRole('INSTRUCTOR')")
     public ResponseEntity<ApiResponse> uploadMarkingGuide(@PathVariable UUID courseId,

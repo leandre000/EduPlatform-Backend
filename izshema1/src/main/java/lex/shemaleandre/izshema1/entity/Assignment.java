@@ -5,7 +5,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-// Assignment entity representing an assignment for a course
+
 @Data
 @Entity
 @Table(name = "assignments")

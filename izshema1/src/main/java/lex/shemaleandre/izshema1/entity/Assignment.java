@@ -9,6 +9,8 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "assignments")
+
+// entity representing an assignement
 public class Assignment {
 
     @Id
